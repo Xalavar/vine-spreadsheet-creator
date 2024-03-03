@@ -12,11 +12,12 @@ A: This is a script that allows you to compile all of your Vine orders into a da
 Q: I already have a spreadsheet, so I don't need this.
 
 A: Congrats, I guess? I know about the method of highlighting everything in the Orders page and copy-pasting the page into a spreadsheet ad nauseum, but
-   doing that for every new order is tiresome. I find it easier to just go to my order page and click a button to generate a newly updated spreadsheet.
+   doing that for every new order is tiresome. I find it easier to just go to the Vine order page and click a button to generate a newly updated spreadsheet. 
+   Plus, my tool can save more data than just what's on the Vine Orders tab.
 
 Q: Where/how is data stored?
 
-A: All data is stored locally in your browser via IndexedDB. To save data, you just go through each page in your Orders tab until you reach the start of the current year (or previous years if you want).
+A: All data is stored locally in your browser as an IndexedDB. To save data, you just go through each page in your Orders tab until you reach the start of the current year (or previous years if you want).
    The data from each Order page is saved. If a page contains X data of a product you ordered, it will be saved.
 
 Q: What data is stored?
