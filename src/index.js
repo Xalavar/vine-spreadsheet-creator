@@ -4,7 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+// Initializing local storage
+if (!localStorage.getItem('VSE_settings')) {
+    localStorage.setItem('VSE_settings', JSON.stringify({}))
+}
+
+
+const root = ReactDOM.createRoot(document.body);
 root.render(
   <React.StrictMode>
     <App />
