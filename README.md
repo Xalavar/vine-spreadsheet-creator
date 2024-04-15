@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# vine-spreadsheet-creator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# FAQ:
 
-In the project directory, you can run:
+Acronyms: TM = Tampermonkey, GM = Greasemonkey
 
-### `npm start`
+Q: What exactly is this and what does it do?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+A: This is a script that allows you to compile all of your Vine orders into a database that can then be exported as a spreadsheet.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Q: I already have a spreadsheet, so I don't need this.
 
-### `npm test`
+A: Congrats, I guess? I know about the method of highlighting everything in the Orders page and copy-pasting the page into a spreadsheet ad nauseum, but
+   doing that for every new order is tiresome. I find it easier to just go to the Vine order page and click a button to generate a newly updated spreadsheet. 
+   Plus, my tool can save more data than just what's on the Vine Orders tab.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Q: Where/how is data stored?
 
-### `npm run build`
+A: All data is stored locally in your browser as an IndexedDB. To save data, you just go through each page in your Orders tab until you reach the start of the current year (or previous years if you want).
+   The data from each Order page is saved. If a page contains X data of a product you ordered, it will be saved.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Q: What data is stored?
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+A: Only the data you see in the spreadsheets this script exports. That includes details of the product, your order numbers, order dates, etc.
+   You can also see what data is stored by clicking the Storage tab when viewing this script in TM/GM.
+   If you want to see specifically what data is saved, you can view the full database in your browser's dev tools.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Q: Do you have access to our information too?
 
-### `npm run eject`
+A: No. This script does not make any attempts to access the internet in any way.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Q: Is there a ban risk to using this? Does it send any data to Amazon?
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+A: Not if you're clicking each page manually. This script merely saves the data currently on the page (you can see which pages it's active in) and isn't interacting with Amazon's services in any way.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Q: Doesn't Amazon ban people who use scripts or automation tools?
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+A: Amazon explicitly stated that "[using] robots (“bots”), scripts, or other similar automation tools to automatically SELECT/ORDER Vine items" will get you kicked out of Vine.
+   This script does not match that criteria, so it's safe to use.
 
-## Learn More
+Q: I already have an existing Google Sheets spreadsheet, but the data in yours and mine are arranged differently.
+A:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Q: Why a script instead of a browser extension or a downloadable program?
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+A: Out of all the different ways I could have implemented something like this, I chose Tampermonkey because it's super easy to make changes on the fly.
+   While I could have made this into an extension, that would require having to get it approved for at least Chrome and Firefox, and I'd rather only have to maintain one version.
+   I could have made this into a Python program, but given the vast age range of people in Vine, I felt more compelled to go with a simpler approach, since some people aren't computer-savvy.
+   Plus, there are other reasons why I avoided those two approaches. I don't want to get on Amazon's bad side and I'd likely be pestered by non-Vine members who merely found the extension through a search asking for an invitation to the program.
 
-### Code Splitting
+Q: Which browsers is this script compatible with?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+A: Any browser that can install Tampermonkey or Greasemonkey, which to my knowledge includes Chrome, Firefox, and Edge. This was primarily tested in Chrome, but I'm confident this works in Firefox and Edge too.
 
-### Analyzing the Bundle Size
+Q: Do spreadsheets work in all versions of Excel? How about Google Sheets?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+A: Yes* and yes. Exported spreadsheets are compatible with both Excel and Google Sheets.
+   I can confirm that this works flawlessly with version 2302 of Excel.
+   *If you're using an older version of Excel that doesn't have certain features, you might want to use Google Sheets instead.
 
-### Making a Progressive Web App
+Q: What does "excluding" a product mean?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+A: It means that the ETV of that product will be excluded from your ETV total. You can also change this in Excel/Sheets.
+   This is mainly for people who cancelled an order or received a defective/damaged product and had Vine CS remove it from their tax totals.
+   Note: This script does NOT know if your orders are going to be excluded from your ETV total by the end of the year, so you must update this for each item manually.
 
-### Advanced Configuration
+Q: The spreadsheet says a product was deleted, but when I click the link, the product page is still there.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+A: The short answer: Vine's item tracking is bugged. Even Amazon doesn't know if items were actually deleted sometimes.
+   This seems to be a bug on Amazon's end. I'm deliberating on how to go about remedying this.
 
-### Deployment
+Q: Can this save product photos?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+A: Not at the moment. I want to add this in, but there are a few problems:
+* Excel doesn't support inserting images directly into cells.
+* Images take up a lot of space.
+However, I could try saving the image URLs and allowing people to paste them into Google Sheets. (I haven't used Sheets that extensively, so I'm not sure if this will work or not.)
 
-### `npm run build` fails to minify
+Q: Any plans for saving other information to spreadsheets, like review date and seller?
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+A: Absolutely! Here's a list of things I'd like to add:
+* Review submission date
+* Review approval date
+* Review title + stars + URL (less likely to happen since Vine's Review page no longer shows that information.)
+* The queue in which the item was requested. (Would require the script being active in the queues.)
+* Seller name + URL (if applicable)
+* Shipment carrier (USPS, Amazon, etc.)
+* Date shipped
+* Date delivered
+* Evaluation dates and # of items requested during each evaluation period
+More complex methods of obtaining such info might be required though. Maybe in the far future, I'll implement the ability to upload emails sent from Amazon and parse through them.
+
+Q: Can this create graphs as well?
+
+A: Unfortunately, that's one of the limitations of the library I'm using. It can't create graphs, only tables.
+   My hope is that maybe the community might help out when it comes to making graphs, but I feel like tables should be sufficient enough for most people's needs.
